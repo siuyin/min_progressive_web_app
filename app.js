@@ -38,7 +38,7 @@ function renderPastPeriods() {
 
 function formatDate(dateString) {
   const date = new Date(dateString)
-  return date.toLocaleDateString("en-US", {timezone: "UTC"})
+  return date.toLocaleDateString("en-GB", {timezone: "UTC"})
 }
 
 function main() {
