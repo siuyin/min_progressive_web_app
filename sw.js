@@ -9,39 +9,43 @@ const APP_STATIC_RESOURCES = [
 ]
 
 self.addEventListener("install", (ev)=> {
-  ev.waitUntil(( async () => {
-    const cache = await caches.open(CACHE_NAME)
-    cache.addAll(APP_STATIC_RESOURCES)
-  } )())
-  console.log(`${CACHE_NAME} installed`)
+  ev.waitUntil(cacheStaticResources())
 })
+
+async function cacheStaticResources() {
+  const cache = await caches.open(CACHE_NAME)
+  cache.addAll(APP_STATIC_RESOURCES)
+  console.log(`${CACHE_NAME} cache installed`)
+}
 
 self.addEventListener("activate", (ev) => {
-  ev.waitUntil(( async() => {
-    const names = await caches.keys()
-    await Promise.all(
-      names.map( (name) => {
-        if (name != CACHE_NAME) {
-          return caches.delete(name)
-        }
-        return undefined
-      }),
-    )
-    await clients.claim()
-    console.log("clients claimed")
-  } )() )
+  ev.waitUntil(activateServiceWorker())
 })
 
+async function activateServiceWorker() {
+  const names = await caches.keys()
+  await Promise.all(
+    names.map( (name) => {
+      if (name != CACHE_NAME) {
+        return caches.delete(name)
+      }
+      return undefined
+    }),
+  )
+  await clients.claim()
+  console.log("clients claimed: service worker has control")
+}
 
-self.addEventListener("fetch", (ev) => {
-  if (ev.request.mode === "navigate") {
-    ev.respondWith(caches.match("/"))
+
+self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    event.respondWith(caches.match("/"))
     return
   }
 
-  ev.respondWith((async() => {
+  event.respondWith((async() => {
     const cache = await caches.open(CACHE_NAME)
-    const cachedResponse = await cache.match(ev.request.url)
+    const cachedResponse = await cache.match(event.request.url)
     if (cachedResponse) {
       return cachedResponse
     }
@@ -49,3 +53,22 @@ self.addEventListener("fetch", (ev) => {
   } )() )
 
 })
+
+async function fetchFromCache(event) {
+  if (event.request.mode === "navigate") {
+    event.respondWith(caches.match("/"))
+    return
+  }
+
+  event.respondWith(fetchFromCacheRequestUrl(event))
+}
+
+async function fetchFromCacheRequestUrl(event) {
+  const cache = await caches.open(CACHE_NAME)
+  const cachedResponse = await cache.match(event.request.url)
+  if (cachedResponse) {
+    console.log(`cached: ${event.request.url}`)
+    return cachedResponse
+  }
+  return new Response(null, {status: 404})
+}
