@@ -1,4 +1,4 @@
-const VERSION = "v1.0.7"
+const VERSION = "v1.0.8"
 const CACHE_NAME = `period-tracker-${VERSION}`
 const APP_STATIC_RESOURCES = [
   "/",
@@ -16,4 +16,38 @@ self.addEventListener("install", (ev)=> {
     cache.addAll(APP_STATIC_RESOURCES)
   } ))
   console.log(`${CACHE_NAME} installed`)
+})
+
+self.addEventListener("activate", (ev) => {
+  ev.waitUntil(( async() => {
+    const names = await caches.keys()
+    await Promise.all(
+      names.map( (name) => {
+        if (name != CACHE_NAME) {
+          return caches.delete(name)
+        }
+        return undefined
+      }),
+    )
+    await clients.claim()
+    console.log("clients claimed")
+  } )() )
+})
+
+
+self.addEventListener("fetch", (ev) => {
+  if (ev.request.mode === "navigate") {
+    ev.respondWith(caches.match("/"))
+    return
+  }
+
+  ev.respondWith((async() => {
+    const cache = await caches.open(CACHE_NAME)
+    const cachedResponse = await cache.match(ev.request.url)
+    if (cachedResponse) {
+      return cachedResponse
+    }
+    return new Response(null, {status: 404})
+  } ))
+
 })
