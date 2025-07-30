@@ -3,7 +3,7 @@ const STORAGE_KEY="period-tracker"
 function storeNewPeriod(s,e) {
   const periods = getAllPeriods()
   periods.push({startDate:s,endDate:e})
-  periods.sort((a,b)=> new Date(b.s) - new Date(a.s))
+  periods.sort((a,b)=> new Date(b.startDate) - new Date(a.startDate))
 
   window.localStorage.setItem(STORAGE_KEY,JSON.stringify(periods))
 }
