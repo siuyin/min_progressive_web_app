@@ -1,7 +1,7 @@
 {
-	"name": "cf",
+	"name": "fc",
 	"display": "standalone",
-	"start_url": "/cf",
+	"start_url": "/fc",
 	"icons": [
 		{"src":"android-chrome-192x192.png","sizes":"192x192","type":"image/png"}
 	]

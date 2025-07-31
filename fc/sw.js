@@ -1,6 +1,6 @@
 const VERSION = "v1.0.0"
 const CACHE_NAME = `multiconv-${VERSION}`
-const BASE_URL = "/cf/"
+const BASE_URL = "/fc/"
 const APP_STATIC_RESOURCES = [
   `${BASE_URL}`,
   `${BASE_URL}index.html`,

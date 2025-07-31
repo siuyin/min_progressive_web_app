@@ -1,0 +1,13 @@
+body {
+	font-family: sans-serif;
+}
+
+#fahrenheit {
+	width: 4em;
+	background-color: #dfd;
+	border: 0;
+}
+
+#celcius {
+	color: red;
+}
