@@ -1,4 +1,4 @@
-const VERSION = "v1"
+const VERSION = "v1.0.1"
 const CACHE_NAME = `tempconv-${VERSION}`
 const APP_STATIC_RESOURCES = [
   "/",
@@ -6,6 +6,7 @@ const APP_STATIC_RESOURCES = [
   "/style.css",
   "/manifest.json",
   "/datastar.js",
+  "/icon.png",
   "/android-chrome-192x192.png",
 ]
 
