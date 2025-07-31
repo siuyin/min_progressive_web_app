@@ -1,13 +1,14 @@
 const VERSION = "v1.0.1"
 const CACHE_NAME = `tempconv-${VERSION}`
+const BASE_URL = "/"
 const APP_STATIC_RESOURCES = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/manifest.json",
-  "/datastar.js",
-  "/icon.png",
-  "/android-chrome-192x192.png",
+  `${BASE_URL}`,
+  `${BASE_URL}index.html`,
+  `${BASE_URL}style.css`,
+  `${BASE_URL}manifest.json`,
+  `${BASE_URL}datastar.js`,
+  `${BASE_URL}icon.png`,
+  `${BASE_URL}android-chrome-192x192.png`,
 ]
 
 self.addEventListener("install", (ev) => {
@@ -38,7 +39,7 @@ async function activateServiceWorker() {
 
 self.addEventListener("fetch", (ev) => {
   if (ev.request.mode === "navigate") {
-    ev.respondWith(caches.match("/"))
+    ev.respondWith(caches.match(`${BASE_URL}`))
     return
   }
 
