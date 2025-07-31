@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<meta name="mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="manifest" href="manifest.json">
-		<link rel="icon" href="icon.png">
-		<link rel="apple-touch-icon" href="icon.png">
-		<title>MinPWA</title>
-	</head>
-	<body>
-		<script>
-			if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-		</script>
-		<p>This is MinPWA</p>
-	</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" href="style.css">
+    <title>tempconv</title>
+  </head>
+  <body>
+    <h1>Celcius to Farenheit</h1>
+    <input data-bind-celcius type="number" step="0.1" id="celcius"></input> Celcius is
+    <span id="farenheit" data-text="$celcius * 9/5 + 32.0"></span> Farenheight
+
+    <script type="module" src="datastar.js"></script>
+    <script>
+      if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+    </script>
+  </body>
 </html>
