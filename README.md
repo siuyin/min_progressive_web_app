@@ -9,3 +9,12 @@ Instead use subdomains.
 
 - cf.example.com/
 - fc.example.com/
+
+## One PWA with cf and fc cached
+
+To get the above working, use one manifest and one service worker and
+cache the requried paths:
+
+- /
+- /cf/
+- /fc/
