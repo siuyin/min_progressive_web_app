@@ -7,10 +7,12 @@ const APP_STATIC_RESOURCES = [
   "/manifest.json",
   "/icon.png",
   "/android-chrome-192x192.png",
+  "/cf/",
   "/cf/index.html",
   "/cf/datastar.js",
   "/cf/style.css",
   "/cf/icon.png",
+  "/fc/",
   "/fc/index.html",
   "/fc/datastar.js",
   "/fc/style.css",
@@ -44,12 +46,6 @@ async function activateServiceWorker() {
 }
 
 self.addEventListener("fetch", (ev) => {
-  //if (ev.request.mode === "navigate") {
-  //  //ev.respondWith(caches.match(`${BASE_URL}`))
-  //  ev.respondWith(caches.match(ev.request.url))
-  //  return
-  //}
-
   ev.respondWith( (async () => {
     const cache = await caches.open(CACHE_NAME)
     const cachedResponse = await cache.match(ev.request.url)
