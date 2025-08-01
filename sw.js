@@ -1,14 +1,20 @@
 const VERSION = "v1.0.0"
 const CACHE_NAME = `multiconv-${VERSION}`
-const BASE_URL = "/fc/"
 const APP_STATIC_RESOURCES = [
-  `${BASE_URL}`,
-  `${BASE_URL}index.html`,
-  `${BASE_URL}style.css`,
-  `${BASE_URL}manifest.json`,
-  `${BASE_URL}datastar.js`,
-  `${BASE_URL}icon.png`,
-  `${BASE_URL}android-chrome-192x192.png`,
+  "/",
+  "/index.html",
+  "/style.css",
+  "/manifest.json",
+  "/icon.png",
+  "/android-chrome-192x192.png",
+  "/cf/index.html",
+  "/cf/datastar.js",
+  "/cf/style.css",
+  "/cf/icon.png",
+  "/fc/index.html",
+  "/fc/datastar.js",
+  "/fc/style.css",
+  "/fc/icon.png",
 ]
 
 self.addEventListener("install", (ev) => {
@@ -38,10 +44,11 @@ async function activateServiceWorker() {
 }
 
 self.addEventListener("fetch", (ev) => {
-  if (ev.request.mode === "navigate") {
-    ev.respondWith(caches.match(`${BASE_URL}`))
-    return
-  }
+  //if (ev.request.mode === "navigate") {
+  //  //ev.respondWith(caches.match(`${BASE_URL}`))
+  //  ev.respondWith(caches.match(ev.request.url))
+  //  return
+  //}
 
   ev.respondWith( (async () => {
     const cache = await caches.open(CACHE_NAME)

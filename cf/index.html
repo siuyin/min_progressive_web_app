@@ -6,7 +6,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <base href="/cf/">
-    <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="stylesheet" href="style.css">
@@ -18,8 +17,5 @@
     <span id="farenheit" data-text="$celcius * 9/5 + 32.0"></span> Fahrenheit
 
     <script type="module" src="datastar.js"></script>
-    <script>
-      if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-    </script>
   </body>
 </html>
